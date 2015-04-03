@@ -1,0 +1,13 @@
+E:\Projects\MAPSpot\MAPSpot\bin\Debug\resources.pri
+E:\Projects\MAPSpot\MAPSpot\bin\Debug\AppxManifest.xml
+E:\Projects\MAPSpot\MAPSpot\bin\Debug\MAPSpot.build.appxrecipe
+E:\Projects\MAPSpot\MAPSpot\bld\Debug\priconfig.xml.intermediate
+E:\Projects\MAPSpot\MAPSpot\bld\Debug\layout.resfiles.intermediate
+E:\Projects\MAPSpot\MAPSpot\bld\Debug\resources.resfiles.intermediate
+E:\Projects\MAPSpot\MAPSpot\bld\Debug\pri.resfiles.intermediate
+E:\Projects\MAPSpot\MAPSpot\bld\Debug\priconfig.xml
+E:\Projects\MAPSpot\MAPSpot\bld\Debug\layout.resfiles
+E:\Projects\MAPSpot\MAPSpot\bld\Debug\resources.resfiles
+E:\Projects\MAPSpot\MAPSpot\bld\Debug\pri.resfiles
+E:\Projects\MAPSpot\MAPSpot\bld\Debug\LanguageQualifiers.txt
+E:\Projects\MAPSpot\MAPSpot\bld\Debug\ProjectArchitectures.txt
