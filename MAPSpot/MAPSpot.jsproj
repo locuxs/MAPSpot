@@ -53,6 +53,7 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="css\bootstrap.min.css" />
     <Content Include="js\test.js" />
     <Content Include="MAPSpot.html" />
     <Content Include="images\logo.png" />
