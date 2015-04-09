@@ -29,7 +29,10 @@ function VerifyAddress() {
         var len = results.length;
         console.log(len);
 
-        console.log("??:" + JSON.stringify(results, null, 4));
+		
+		ReturnOBJ_Address(results);		
+		
+        //console.log("??:" + JSON.stringify(results, null, 4));
 
 
 
@@ -164,13 +167,23 @@ function UpdateMapDetails(address, obj) {
 }
 
 
-function UpdateMapDetailsTxt(address, obj_address_txt) {
-    var txt = "<strong>" + address + "</strong><br/><br/>";
-    txt += obj_address_txt;
+function ReturnOBJ_Address(results){
 
-    document.getElementById('map-details-canvas').innerHTML = txt;
+        var len = results.length;
+		//check the length of the object
+		//if is 1, then create the obj_address and display
+		
+		//if is more than 1
+		//then filter the objects for only Canada location
+		//if 1 canada location then create the obj_address and display
+
+		//else create a list of options and show to the user.
+		
+		for(i =0; i <= len; i++){
+			console.log(results[i].formatted_address);
+		}
+
 }
-
 
 
 google.maps.event.addDomListener(window, "load", init);
