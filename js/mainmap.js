@@ -26,62 +26,35 @@ function VerifyAddress() {
         var addr_type = results[0].types[0];	// type of address inputted that was geocoded
 
         var formatAddr = results[0].formatted_address;
-        var len = results.length;
-        console.log(len);
-
+        
+        var obj_address = ReturnOBJ_Address(results);		
 		
-		ReturnOBJ_Address(results);		
-		
-        //console.log("??:" + JSON.stringify(results, null, 4));
 
+        //var obj_address = {            
+        //    "Street Num": results[0].address_components[0].short_name,
+        //    "street Num Long": results[0].address_components[0].long_name,
+        //    "Route": results[0].address_components[1].short_name,
+        //    "Route Long": results[0].address_components[1].long_name,
+        //    "Neighborhood": results[0].address_components[2].short_name,
+        //    "Neighborhood Long": results[0].address_components[2].long_name,
+        //    "Sub-Locality": results[0].address_components[3].short_name,
+        //    "Sub-Locality Long": results[0].address_components[3].long_name,
+        //    "Locality": results[0].address_components[4].short_name,
+        //    "Locality Long": results[0].address_components[4].long_name,
+        //    "Adm Area": results[0].address_components[5].short_name,
+        //    "Adm Area Long": results[0].address_components[5].long_name,
+        //    "Province Code": results[0].address_components[6].short_name,
+        //    "Province Name": results[0].address_components[6].long_name,
+        //    "Country Code": results[0].address_components[7].short_name,
+        //    "Country Name": results[0].address_components[7].long_name,
+        //    "Postal Code": results[0].address_components[8].short_name,
+        //    "postalCodeLong": results[0].address_components[8].long_name,
+        //    "Location": results[0].geometry.location,
+        //    "Latitude": results[0].geometry.location.lat(),
+        //    "Longitude": results[0].geometry.location.lng(),            
+        //    "Location Type": results[0].geometry.location_type,
 
-
-
-        //for (i = 0; i <= len ; i++) {
-        //    var val_s = results[0].address_components[i].short_name;
-        //    var val_l = results[0].address_components[i].long_name;
-        //    var val_t = results[0].address_components[i].types;
-
-        //    console.log("short : " + val_s);
-        //    console.log("long : " + val_l);
-        //    console.log("type : " + val_t);
-
-        //    switch (val_t) {
-        //        case "street_number":
-        //            obj_address = { "Street Number": val_s, "Street Num Lng" : val_l }
-        //            break;
-        //    }
-
-           
         //}
-
-
-
-        var obj_address = {            
-            "Street Num": results[0].address_components[0].short_name,
-            "street Num Long": results[0].address_components[0].long_name,
-            "Route": results[0].address_components[1].short_name,
-            "Route Long": results[0].address_components[1].long_name,
-            "Neighborhood": results[0].address_components[2].short_name,
-            "Neighborhood Long": results[0].address_components[2].long_name,
-            "Sub-Locality": results[0].address_components[3].short_name,
-            "Sub-Locality Long": results[0].address_components[3].long_name,
-            "Locality": results[0].address_components[4].short_name,
-            "Locality Long": results[0].address_components[4].long_name,
-            "Adm Area": results[0].address_components[5].short_name,
-            "Adm Area Long": results[0].address_components[5].long_name,
-            "Province Code": results[0].address_components[6].short_name,
-            "Province Name": results[0].address_components[6].long_name,
-            "Country Code": results[0].address_components[7].short_name,
-            "Country Name": results[0].address_components[7].long_name,
-            "Postal Code": results[0].address_components[8].short_name,
-            "postalCodeLong": results[0].address_components[8].long_name,
-            "Location": results[0].geometry.location,
-            "Latitude": results[0].geometry.location.lat(),
-            "Longitude": results[0].geometry.location.lng(),            
-            "Location Type": results[0].geometry.location_type,
-
-        }
 
 
 
@@ -156,12 +129,16 @@ function UpdateMap( latlng, address, addr_type) {
 }
 
 function UpdateMapDetails(address, obj) {
+
     var txt = "<strong>" + address + "</strong><br/><br/>";
     for(var key in obj){
         var val = obj[key];
         txt += "<strong>" + key + "</strong> : " + val + "<br/>";
     }
     
+    for (var i=0; i < obj.length; i++){
+        txt += obj[i].address + "<br/>"
+    }
 
     document.getElementById('map-details-canvas').innerHTML = txt;
 }
@@ -169,20 +146,83 @@ function UpdateMapDetails(address, obj) {
 
 function ReturnOBJ_Address(results){
 
-        var len = results.length;
 		//check the length of the object
-		//if is 1, then create the obj_address and display
-		
+        if (typeof results != 'undefined') {
+            var len = results.length;
+            console.log("len: " + len);
+            console.log("??:" + JSON.stringify(results, null, 4));
+             
+            if (len == 1) {
+                //if is 1, then create the obj_address and display
+                return BuildOBJ_Address(results);
+            } else {
+
+                return BuildOBJ_AddressOptions(results);
+            }
+    
+
+        }
 		//if is more than 1
 		//then filter the objects for only Canada location
 		//if 1 canada location then create the obj_address and display
 
 		//else create a list of options and show to the user.
 		
-		for(i =0; i <= len; i++){
-			console.log(results[i].formatted_address);
-		}
+		//for(i =0; i <= len; i++){
+		//	console.log(results[i].formatted_address);
+		//}
 
+}
+
+function BuildOBJ_Address(results){
+
+    var obj_address = {
+        "Street Num": results[0].address_components[0].short_name,
+        "street Num Long": results[0].address_components[0].long_name,
+        "Route": results[0].address_components[1].short_name,
+        "Route Long": results[0].address_components[1].long_name,
+        "Neighborhood": results[0].address_components[2].short_name,
+        "Neighborhood Long": results[0].address_components[2].long_name,
+        "Sub-Locality": results[0].address_components[3].short_name,
+        "Sub-Locality Long": results[0].address_components[3].long_name,
+        "Locality": results[0].address_components[4].short_name,
+        "Locality Long": results[0].address_components[4].long_name,
+        "Adm Area": results[0].address_components[5].short_name,
+        "Adm Area Long": results[0].address_components[5].long_name,
+        "Province Code": results[0].address_components[6].short_name,
+        "Province Name": results[0].address_components[6].long_name,
+        //"Country Code": results[0].address_components[7].short_name,
+        //"Country Name": results[0].address_components[7].long_name,
+        //"Postal Code": results[0].address_components[8].short_name,
+        //"postalCodeLong": results[0].address_components[8].long_name,
+        //"Location": results[0].geometry.location,
+        //"Latitude": results[0].geometry.location.lat(),
+        //"Longitude": results[0].geometry.location.lng(),
+        //"Location Type": results[0].geometry.location_type,
+
+    }
+
+    return obj_address;
+}
+
+function BuildOBJ_AddressOptions(results) {
+
+        var obj_address;
+        var objArr = [];
+        for (i = 0; i <= results.length ; i++) {
+            var newElement = {};
+            console.log(i);
+            if (typeof results[i] != 'undefined') {
+                var str = newElement.address = results[i].formatted_address;
+                if (str.indexOf('Canada') > -1) {
+                    newElement.address = results[i].formatted_address;
+                    objArr.push(newElement);
+                }
+            }
+            
+        }
+        console.log("before return");
+        return objArr;
 }
 
 
